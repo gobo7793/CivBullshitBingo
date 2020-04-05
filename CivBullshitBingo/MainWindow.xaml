@@ -21,7 +21,7 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <DockPanel>
         <StackPanel Height="32" Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
             <Button Name="ButtonNew" Content="Neu" Click="ButtonNew_Click"/>
@@ -42,13 +42,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Grid.Column="0" Grid.Row="0"/>
             <TextBlock Grid.Column="1" Grid.Row="0"/>
             <TextBlock Grid.Column="2" Grid.Row="0"/>
             <TextBlock Grid.Column="3" Grid.Row="0"/>
             <TextBlock Grid.Column="4" Grid.Row="0"/>
-            
+
             <TextBlock Grid.Column="0" Grid.Row="1"/>
             <TextBlock Grid.Column="1" Grid.Row="1"/>
             <TextBlock Grid.Column="2" Grid.Row="1"/>
