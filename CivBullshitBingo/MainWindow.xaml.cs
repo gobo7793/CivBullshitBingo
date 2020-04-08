@@ -15,7 +15,7 @@ namespace CivBullshitBingo
     public partial class MainWindow : Window
     {
         static readonly private Brush OpenPhraseColor = Brushes.Black;
-        static readonly private Brush ClickedPhraseColor = Brushes.Red;
+        static readonly private Brush MarkedPhraseColor = Brushes.Red;
         static public Random Random = new Random();
 
         public List<string> PhraseList { get; set; } = new List<string>();
@@ -28,8 +28,8 @@ namespace CivBullshitBingo
         private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var tb = sender as TextBlock;
-            if (tb?.Foreground == OpenPhraseColor) tb.Foreground = ClickedPhraseColor;
-            else if (tb?.Foreground == ClickedPhraseColor) tb.Foreground = OpenPhraseColor;
+            if (tb?.Foreground == OpenPhraseColor) tb.Foreground = MarkedPhraseColor;
+            else if (tb?.Foreground == MarkedPhraseColor) tb.Foreground = OpenPhraseColor;
         }
 
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
@@ -57,6 +57,7 @@ namespace CivBullshitBingo
                     var element = Grid.Children.Cast<TextBlock>().
                         FirstOrDefault(tb => Grid.GetColumn(tb) == x && Grid.GetRow(tb) == y);
 
+                    element.Foreground = OpenPhraseColor;
                     if (x == 2 && y == 2) // add jokers
                     {
                         element.Text = element.Text = "Joker";
