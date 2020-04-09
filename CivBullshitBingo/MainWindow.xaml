@@ -25,6 +25,7 @@
     <DockPanel>
         <StackPanel Height="32" Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
             <Button Name="ButtonNew" Content="Neu" Click="ButtonNew_Click"/>
+            <Button Name="ToggleMode" Content="White/Dark Mode" Click="ToggleMode_Click"/>
             <Button Name="ButtonExit" Content="Beenden" Click="ButtonExit_Click"/>
         </StackPanel>
         <Grid Name="Grid" DockPanel.Dock="Bottom">

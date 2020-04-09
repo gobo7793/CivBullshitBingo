@@ -10,12 +10,29 @@ using System.Windows.Media;
 namespace CivBullshitBingo
 {
     /// <summary>
+    /// Display Modes (White/Dark Mode)
+    /// </summary>
+    enum DisplayModes { White, Dark }
+
+    /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        static readonly private Brush OpenPhraseColor = Brushes.Black;
-        static readonly private Brush MarkedPhraseColor = Brushes.Red;
+        DisplayModes DisplayMode = DisplayModes.White;
+
+        static readonly Brush WhiteWindowBackgroundColor = Brushes.White;
+        static readonly Brush WhiteOpenPhraseColor = Brushes.Black;
+        static readonly Brush WhiteMarkedPhraseColor = Brushes.Red;
+
+        static readonly Brush DarkWindowBackgroundColor = Brushes.Black;
+        static readonly Brush DarkOpenPhraseColor = Brushes.White;
+        static readonly Brush DarkMarkedPhraseColor = Brushes.Red;
+
+        Brush WindowBackgroundColor => DisplayMode == DisplayModes.White ? WhiteWindowBackgroundColor : DarkWindowBackgroundColor;
+        Brush OpenPhraseColor => DisplayMode == DisplayModes.White ? WhiteOpenPhraseColor : DarkOpenPhraseColor;
+        Brush MarkedPhraseColor => DisplayMode == DisplayModes.White ? WhiteMarkedPhraseColor : DarkMarkedPhraseColor;
+
         static public Random Random = new Random();
 
         public List<string> PhraseList { get; set; } = new List<string>();
@@ -67,6 +84,21 @@ namespace CivBullshitBingo
                     else
                         element.Text = PhraseList[phraseNo++];
                 }
+        }
+
+        private void ToggleMode_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var tb in Grid.Children.Cast<TextBlock>())
+            {
+                if (tb.Foreground == WhiteOpenPhraseColor) tb.Foreground = DarkOpenPhraseColor;
+                else if (tb.Foreground == DarkOpenPhraseColor) tb.Foreground = WhiteOpenPhraseColor;
+
+                else if (tb.Foreground == WhiteMarkedPhraseColor) tb.Foreground = DarkMarkedPhraseColor;
+                else if (tb.Foreground == DarkMarkedPhraseColor) tb.Foreground = WhiteMarkedPhraseColor;
+            }
+
+            DisplayMode = (DisplayMode == DisplayModes.White) ? DisplayModes.Dark : DisplayModes.White;
+            Background = WindowBackgroundColor;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
