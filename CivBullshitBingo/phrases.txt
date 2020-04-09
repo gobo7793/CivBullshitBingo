@@ -7,8 +7,8 @@ Remake fordern
 "Was willste da machen"
 "(Absolut) Lächerlich"
 Jemand jammert wegen fehlender Ressourcen
-Landric erklärt Krieg vor Runde 50
-Jo erklärt Krieg vor Runde 50
+Landric erklärt Krieg vor Runde 50*
+Jo erklärt Krieg vor Runde 50*
 Becci verhandelt vergebens mit Heiko
 Emil hat Disconnect
 Chrissi stiftet Unruhe
@@ -18,7 +18,10 @@ Becci startet mit (Natur-) Wunder
 Ragequit
 Raucher- oder Kochpause
 Mella staubsaugt im Hintergrund
-"Diese verfickten Barbaren"
+"Diese <Beleidigung> Barbaren"
 Jemand ragemuted sich
-Stadt wird von Vulkan getroffen
+Stadt wird von Naturkatastrophe getroffen
 Siedler wird geklaut
+Vor Runde 20* Händler/Handwerker geschenkt bekommen
+Vor Runde 20* Reliquie geschenkt bekommen
+HIIIIILFE!
