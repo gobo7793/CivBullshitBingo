@@ -45,6 +45,8 @@ namespace CivBullshitBingo
         private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var tb = sender as TextBlock;
+            if (!Grid.Children.Cast<TextBlock>().Contains(tb)) return;
+
             if (tb?.Foreground == OpenPhraseColor) tb.Foreground = MarkedPhraseColor;
             else if (tb?.Foreground == MarkedPhraseColor) tb.Foreground = OpenPhraseColor;
         }
@@ -99,6 +101,7 @@ namespace CivBullshitBingo
 
             DisplayMode = (DisplayMode == DisplayModes.White) ? DisplayModes.Dark : DisplayModes.White;
             Background = WindowBackgroundColor;
+            Notes.Foreground = OpenPhraseColor;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
