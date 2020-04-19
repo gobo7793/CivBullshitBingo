@@ -41,8 +41,9 @@ namespace CivBullshitBingo
         {
             InitializeComponent();
         }
-        
-        public void ReadPhrases(string fileName){
+
+        public void ReadPhrases(string fileName)
+        {
             PhraseList.Clear();
 
             using (var sr = new StreamReader(fileName))
@@ -59,8 +60,9 @@ namespace CivBullshitBingo
 
             PhraseList.Shuffle();
         }
-        
-        public void CreateBingo(){
+
+        public void CreateBingo()
+        {
             int phraseNo = 0;
             for (int x = 0; x < Grid.ColumnDefinitions.Count; x++)
                 for (int y = 0; y < Grid.RowDefinitions.Count; y++)
@@ -69,14 +71,18 @@ namespace CivBullshitBingo
                         FirstOrDefault(tb => Grid.GetColumn(tb) == x && Grid.GetRow(tb) == y);
 
                     element.Foreground = OpenPhraseColor;
-                    if (x == 2 && y == 2) // add jokers
-                    {
-                        element.Text = element.Text = "Joker";
-                        element.FontSize = 20;
-                        element.FontWeight = FontWeights.Bold;
-                    }
+
+                    if (x == 2 && y == 2) // add static jokers
+                        SetJokerField(element);
                     else
-                        element.Text = PhraseList[phraseNo++];
+                    {
+                        var phraseText = PhraseList[phraseNo++].Trim();
+
+                        if (phraseText.ToLower() == "joker") // add dynamic jokers
+                            SetJokerField(element);
+                        else
+                            SetPhraseField(element, phraseText);
+                    }
                 }
         }
 
@@ -89,15 +95,35 @@ namespace CivBullshitBingo
             else if (tb?.Foreground == MarkedPhraseColor) tb.Foreground = OpenPhraseColor;
         }
 
+        private void SetPhraseField(TextBlock element, String phrase)
+        {
+            SetTextBlockStyle(element, "PhraseTextBlock");
+            element.Text = phrase;
+        }
+
+        private void SetJokerField(TextBlock element)
+        {
+            SetTextBlockStyle(element, "JokerTextBlock");
+            element.Text = "Joker";
+        }
+
+        private void SetTextBlockStyle(TextBlock element, String styleName)
+        {
+            var style = FindResource(styleName) as Style;
+            if (style != null)
+                element.Style = style;
+        }
+
         private void ButtonsNew_Click(object sender, RoutedEventArgs e)
         {
             var file = String.Empty;
-            if(sender == ButtonNewCiv)
+            if (sender == ButtonNewCiv)
                 file = "civPhrases.txt";
-            else if(sender == ButtonNewLol)
+            else if (sender == ButtonNewLol)
                 file = "lolPhrases.txt";
-            
-            if(!String.IsNullOrWhiteSpace(file)){
+
+            if (!String.IsNullOrWhiteSpace(file))
+            {
                 ReadPhrases(file);
                 CreateBingo();
             }

@@ -8,13 +8,17 @@
         Title="Bullshit Bingo" Height="580" Width="500">
     <Window.Resources>
         <ResourceDictionary>
-            <Style TargetType="TextBlock">
+            <Style TargetType="TextBlock" x:Key="PhraseTextBlock">
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="TextAlignment" Value="Center"/>
                 <Setter Property="Foreground" Value="Black"/>
                 <EventSetter Event="MouseUp" Handler="TextBlock_MouseUp" />
+            </Style>
+            <Style TargetType="TextBlock" x:Key="JokerTextBlock" BasedOn="{StaticResource PhraseTextBlock}">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Bold" />
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="3" />
@@ -30,9 +34,9 @@
             <Button Name="ButtonUpdatePhrases" Content="Update Phrases" Click="ButtonUpdatePhrases_Click"/>
             <Button Name="ButtonExit" Content="Beenden" Click="ButtonExit_Click"/>
         </StackPanel>
-        <TextBlock Name="Notes" DockPanel.Dock="Bottom" Height="30">
+        <Label Name="Notes" DockPanel.Dock="Bottom" Height="30">
             *) Depends on game mode
-        </TextBlock>
+        </Label>
         <Grid Name="Grid" DockPanel.Dock="Left">
             <Grid.RowDefinitions>
                 <RowDefinition/>
