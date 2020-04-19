@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,6 +33,11 @@ namespace CivBullshitBingo
         Brush WindowBackgroundColor => DisplayMode == DisplayModes.White ? WhiteWindowBackgroundColor : DarkWindowBackgroundColor;
         Brush OpenPhraseColor => DisplayMode == DisplayModes.White ? WhiteOpenPhraseColor : DarkOpenPhraseColor;
         Brush MarkedPhraseColor => DisplayMode == DisplayModes.White ? WhiteMarkedPhraseColor : DarkMarkedPhraseColor;
+
+        String CivPhraseUrl = "https://raw.githubusercontent.com/gobo7793/CivBullshitBingo/master/CivBullshitBingo/civPhrases.txt";
+        String LolPhraseUrl = "https://raw.githubusercontent.com/gobo7793/CivBullshitBingo/master/CivBullshitBingo/lolPhrases.txt";
+        String CivPhraseFile = "civPhrases.txt";
+        String LolPhraseFile = "lolPhrases.txt";
 
         static public Random Random = new Random();
 
@@ -118,9 +124,9 @@ namespace CivBullshitBingo
         {
             var file = String.Empty;
             if (sender == ButtonNewCiv)
-                file = "civPhrases.txt";
+                file = CivPhraseFile;
             else if (sender == ButtonNewLol)
-                file = "lolPhrases.txt";
+                file = LolPhraseFile;
 
             if (!String.IsNullOrWhiteSpace(file))
             {
@@ -131,7 +137,22 @@ namespace CivBullshitBingo
 
         private void ButtonUpdatePhrases_Click(object sender, RoutedEventArgs e)
         {
-            // todo
+            bool IsSuccessDL = true;
+            try
+            {
+                var wclient = new WebClient();
+                wclient.DownloadFile(CivPhraseUrl, CivPhraseFile);
+                wclient.DownloadFile(LolPhraseUrl, LolPhraseFile);
+            }
+            catch(Exception ex)
+            {
+                IsSuccessDL = false;
+                MessageBox.Show($"Fehler beim Download der Phrasen:{Environment.NewLine}" +
+                    $"{ex.Message}");
+            }
+
+            if (IsSuccessDL)
+                MessageBox.Show("Neue Phrasen erfolgreich runtergeladen.");
         }
 
         private void ToggleMode_Click(object sender, RoutedEventArgs e)
