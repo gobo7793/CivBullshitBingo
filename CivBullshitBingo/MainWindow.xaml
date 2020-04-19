@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CivBullshitBingo"
         mc:Ignorable="d"
-        Title="Civ Bullshit Bingo" Height="580" Width="500">
+        Title="Bullshit Bingo" Height="580" Width="500">
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="TextBlock">
@@ -24,12 +24,14 @@
 
     <DockPanel>
         <StackPanel Height="32" Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
-            <Button Name="ButtonNew" Content="Neu" Click="ButtonNew_Click"/>
+            <Button Name="ButtonNewCiv" Content="Neu (CIV)" Click="ButtonsNew_Click"/>
+            <Button Name="ButtonNewLol" Content="Neu (LOL)" Click="ButtonsNew_Click"/>
             <Button Name="ToggleMode" Content="White/Dark Mode" Click="ToggleMode_Click"/>
+            <Button Name="ButtonUpdatePhrases" Content="Update Phrases" Click="ButtonUpdatePhrases_Click"/>
             <Button Name="ButtonExit" Content="Beenden" Click="ButtonExit_Click"/>
         </StackPanel>
         <TextBlock Name="Notes" DockPanel.Dock="Bottom" Height="30">
-            *) Rundenanzahl abhängig vom Spielmodus
+            *) Depends on game mode
         </TextBlock>
         <Grid Name="Grid" DockPanel.Dock="Left">
             <Grid.RowDefinitions>

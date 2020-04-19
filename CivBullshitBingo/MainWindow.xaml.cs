@@ -41,21 +41,11 @@ namespace CivBullshitBingo
         {
             InitializeComponent();
         }
-
-        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var tb = sender as TextBlock;
-            if (!Grid.Children.Cast<TextBlock>().Contains(tb)) return;
-
-            if (tb?.Foreground == OpenPhraseColor) tb.Foreground = MarkedPhraseColor;
-            else if (tb?.Foreground == MarkedPhraseColor) tb.Foreground = OpenPhraseColor;
-        }
-
-        private void ButtonNew_Click(object sender, RoutedEventArgs e)
-        {
+        
+        public void ReadPhrases(string fileName){
             PhraseList.Clear();
 
-            using (var sr = new StreamReader("phrases.txt"))
+            using (var sr = new StreamReader(fileName))
             {
                 while (!sr.EndOfStream)
                 {
@@ -68,7 +58,9 @@ namespace CivBullshitBingo
                 return; // to lazy for output, that txt contains not enough phrases
 
             PhraseList.Shuffle();
-
+        }
+        
+        public void CreateBingo(){
             int phraseNo = 0;
             for (int x = 0; x < Grid.ColumnDefinitions.Count; x++)
                 for (int y = 0; y < Grid.RowDefinitions.Count; y++)
@@ -86,6 +78,34 @@ namespace CivBullshitBingo
                     else
                         element.Text = PhraseList[phraseNo++];
                 }
+        }
+
+        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var tb = sender as TextBlock;
+            if (!Grid.Children.Cast<TextBlock>().Contains(tb)) return;
+
+            if (tb?.Foreground == OpenPhraseColor) tb.Foreground = MarkedPhraseColor;
+            else if (tb?.Foreground == MarkedPhraseColor) tb.Foreground = OpenPhraseColor;
+        }
+
+        private void ButtonsNew_Click(object sender, RoutedEventArgs e)
+        {
+            var file = String.Empty;
+            if(sender == ButtonNewCiv)
+                file = "civPhrases.txt";
+            else if(sender == ButtonNewLol)
+                file = "lolPhrases.txt";
+            
+            if(!String.IsNullOrWhiteSpace(file)){
+                ReadPhrases(file);
+                CreateBingo();
+            }
+        }
+
+        private void ButtonUpdatePhrases_Click(object sender, RoutedEventArgs e)
+        {
+            // todo
         }
 
         private void ToggleMode_Click(object sender, RoutedEventArgs e)
